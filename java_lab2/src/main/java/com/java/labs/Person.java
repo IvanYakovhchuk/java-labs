@@ -38,7 +38,7 @@ public class Person {
     }
 
     @Override
-    public boolean equals(Object obj) {
+    public final boolean equals(Object obj) {
         if (this == obj) {
             return true;
         }
@@ -51,7 +51,7 @@ public class Person {
     }
 
     @Override
-    public int hashCode() {
+    public final int hashCode() {
         return Objects.hash(this.lastName, this.firstName, this.age);
     }
 }
