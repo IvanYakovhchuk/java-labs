@@ -1,6 +1,8 @@
 package com.java.labs.shapes;
 
-public abstract class Shape implements Drawable {
+import java.io.Serializable;
+
+public abstract class Shape implements Drawable, Serializable {
 
     private String shapeColor;
 

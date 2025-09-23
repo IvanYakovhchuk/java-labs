@@ -2,8 +2,13 @@ package com.java.labs;
 
 import com.java.labs.shapes.Circle;
 import com.java.labs.shapes.Rectangle;
+import com.java.labs.shapes.Shape;
 import com.java.labs.shapes.Triangle;
 import com.java.labs.utils.CharInputUtility;
+
+import java.io.*;
+import java.nio.file.Path;
+import java.util.List;
 
 public class ShapeController {
 
@@ -20,6 +25,7 @@ public class ShapeController {
     public void execute() {
         view.printMessage(view.PROMPT);
         int choice = ut.readDigit();
+        Path path = Path.of("./src/main/resources/shapes.ser");
         switch (choice) {
             case 1:
                 model.getShapes().forEach(System.out::println);
@@ -53,6 +59,23 @@ public class ShapeController {
             case 5:
                 model.sortShapesByColorAsc()
                         .forEach(System.out::println);
+                break;
+            case 6:
+                try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(path.toFile()))) {
+                    model.serializeShapes(oos);
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
+                break;
+            case 7:
+                try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(path.toFile()))) {
+                    List<Shape> result = model.deserializeShapes(ois);
+                    result.forEach(System.out::println);
+                } catch (EOFException ex) {
+                    System.err.println("File is empty.");
+                } catch (IOException ex) {
+                    throw new RuntimeException(ex);
+                }
                 break;
             default: break;
         }

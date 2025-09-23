@@ -5,6 +5,10 @@ import com.java.labs.shapes.Rectangle;
 import com.java.labs.shapes.Shape;
 import com.java.labs.shapes.Triangle;
 
+import java.io.EOFException;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 
 public class ShapeModel {
@@ -95,5 +99,34 @@ public class ShapeModel {
                 .filter(c::isInstance)
                 .mapToDouble(Shape::calcArea)
                 .sum();
+    }
+
+    public void serializeShapes(ObjectOutputStream oos) {
+        shapes.forEach(s -> {
+            try {
+                oos.writeObject(s);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        });
+    }
+
+    public List<Shape> deserializeShapes(ObjectInputStream ois) {
+        List<Shape> deserializedShapes = new ArrayList<>();
+        boolean isEmpty = true;
+        while (true) {
+            try {
+                deserializedShapes.add((Shape) ois.readObject());
+                isEmpty = false;
+            } catch (EOFException ex) {
+                if (isEmpty) {
+                    System.err.println("The file is empty.");
+                }
+                break;
+            } catch (IOException | ClassNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        return deserializedShapes;
     }
 }

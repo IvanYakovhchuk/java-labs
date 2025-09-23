@@ -7,7 +7,9 @@ public class ShapeView {
             2. Show total area
             3. Show total area for chosen type of shape
             4. Sort shapes by area
-            5. Sort shapes by color""";
+            5. Sort shapes by color
+            6. Save shapes to file
+            7. Read shapes from file""";
 
     public final String SHAPE_CHOICE = """
             1. Rectangle
