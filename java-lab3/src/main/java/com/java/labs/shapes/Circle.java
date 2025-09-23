@@ -1,4 +1,4 @@
-package com.java.labs;
+package com.java.labs.shapes;
 
 import java.util.Locale;
 

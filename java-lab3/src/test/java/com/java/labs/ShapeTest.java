@@ -1,5 +1,8 @@
 package com.java.labs;
 
+import com.java.labs.shapes.Circle;
+import com.java.labs.shapes.Rectangle;
+import com.java.labs.shapes.Triangle;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvFileSource;

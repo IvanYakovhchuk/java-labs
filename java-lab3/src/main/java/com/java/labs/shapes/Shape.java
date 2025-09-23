@@ -1,6 +1,6 @@
-package com.java.labs;
+package com.java.labs.shapes;
 
-public abstract class Shape implements Drawable{
+public abstract class Shape implements Drawable {
 
     private String shapeColor;
 
