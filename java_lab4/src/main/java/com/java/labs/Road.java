@@ -12,7 +12,7 @@ public class Road {
 
     public int getCountOfHumans() {
         return carsInRoad.stream()
-                .mapToInt(Vehicle::getTotalSeats)
+                .mapToInt(Vehicle::countOccupiedSeats)
                 .sum();
     }
 

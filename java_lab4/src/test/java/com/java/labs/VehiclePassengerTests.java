@@ -75,4 +75,31 @@ public class VehiclePassengerTests {
         bus.removePassenger(ff);
         assertEquals(0, bus.countOccupiedSeats());
     }
+
+    @Test
+    void countHumansOnRoad() {
+        Road road = new Road();
+        PoliceCar pc = new PoliceCar(2);
+        FireEngine fe = new FireEngine(3);
+        Bus<Human> bus = new Bus<>(15);
+
+        for (int i = 0; i < pc.getTotalSeats(); i++) {
+            pc.addPassenger(new Policeman());
+        }
+
+        for (int i = 0; i < fe.getTotalSeats(); i++) {
+            fe.addPassenger(new Firefighter());
+        }
+
+        for (int i = 0; i < bus.getTotalSeats(); i++) {
+            bus.addPassenger(new Human());
+        }
+
+        road.addCarToRoad(fe);
+        road.addCarToRoad(pc);
+        road.addCarToRoad(bus);
+
+        int expectedHumanCount = pc.countOccupiedSeats() + fe.countOccupiedSeats() + bus.countOccupiedSeats();
+        assertEquals(expectedHumanCount, road.getCountOfHumans());
+    }
 }
