@@ -1,5 +1,6 @@
 package com.java.labs;
 
+import com.java.labs.localization.LocaleManager;
 import com.java.labs.shapes.Circle;
 import com.java.labs.shapes.Rectangle;
 import com.java.labs.shapes.Shape;
@@ -15,15 +16,17 @@ public class ShapeController {
     private final ShapeModel model;
     private final ShapeView view;
     private final CharInputUtility ut;
+    private final LocaleManager localeManager;
 
-    public ShapeController(ShapeModel model, ShapeView view, CharInputUtility ut) {
+    public ShapeController(ShapeModel model, ShapeView view, CharInputUtility ut, LocaleManager localeManager) {
         this.model = model;
         this.view = view;
         this.ut = ut;
+        this.localeManager = localeManager;
     }
 
     public void execute() {
-        view.printMessage(view.PROMPT);
+        view.printMenu();
         int choice = ut.readDigit();
         Path path = Path.of("./src/main/resources/shapes.ser");
         switch (choice) {
@@ -31,23 +34,23 @@ public class ShapeController {
                 model.getShapes().forEach(System.out::println);
                 break;
             case 2:
-                view.printMessageAndValue(view.SUM, model.calcAreaSum());
+                view.printMessageAndValue("sum", model.calcAreaSum());
                 break;
             case 3:
-                view.printMessage(view.SHAPE_CHOICE);
+                view.printShapeChoice();
                 int ch = ut.readDigit();
                 switch (ch) {
                     case 1:
-                        view.printMessageAndValue(view.RECTANGLE_SUM,
-                                                  model.calcAreaSumOfShape(Rectangle.class));
+                        view.printMessageAndValue("rectangle.sum",
+                                model.calcAreaSumOfShape(Rectangle.class));
                         break;
                     case 2:
-                        view.printMessageAndValue(view.TRIANGLE_SUM,
-                                                  model.calcAreaSumOfShape(Triangle.class));
+                        view.printMessageAndValue("triangle.sum",
+                                model.calcAreaSumOfShape(Triangle.class));
                         break;
                     case 3:
-                        view.printMessageAndValue(view.CIRCLE_SUM,
-                                                  model.calcAreaSumOfShape(Circle.class));
+                        view.printMessageAndValue("circle.sum",
+                                model.calcAreaSumOfShape(Circle.class));
                         break;
                     default: break;
                 }
@@ -76,6 +79,12 @@ public class ShapeController {
                 } catch (IOException ex) {
                     throw new RuntimeException(ex);
                 }
+                break;
+            case 8:
+                System.out.println("1. English\n2. Українська");
+                int langChoice = ut.readDigit();
+                localeManager.setLocaleByChoice(langChoice);
+                view.printMenu();
                 break;
             default: break;
         }
