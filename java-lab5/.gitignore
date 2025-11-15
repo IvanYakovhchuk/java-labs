@@ -4,6 +4,7 @@ target/
 !**/src/test/**/target/
 src/main/resources/input-test.txt
 src/main/resources/output-test.txt
+logs
 
 ### IntelliJ IDEA ###
 .idea

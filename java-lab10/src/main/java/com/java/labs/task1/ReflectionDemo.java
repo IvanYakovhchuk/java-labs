@@ -1,4 +1,4 @@
-package com.java.labs;
+package com.java.labs.task1;
 
 import java.lang.reflect.Field;
 import java.nio.charset.StandardCharsets;
